@@ -5438,13 +5438,14 @@ P value adjustment: dunnettx method for 6 tests </code></pre>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["npar"],"name":[1],"type":["int"],"align":["right"]},{"label":["Sum Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"3","2":"2.55378","3":"0.85126","4":"4.192323","_rn_":"fung"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Sum Sq"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["NumDF"],"name":[3],"type":["int"],"align":["right"]},{"label":["DenDF"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"2.55378","2":"0.85126","3":"3","4":"279.8565","5":"4.192323","6":"0.006350575","_rn_":"fung"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(NBLS_field)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Linear mixed model fit by REML [&#39;lmerMod&#39;]
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+lmerModLmerTest]
 Formula: NBLS ~ fung + (1 | year/env)
    Data: CERC_TIME_data
 
@@ -5462,11 +5463,13 @@ Random effects:
 Number of obs: 288, groups:  env:year, 6; year, 2
 
 Fixed effects:
-            Estimate Std. Error t value
-(Intercept)  0.99076    0.25829   3.836
-fungCevya   -0.22263    0.09225  -2.413
-fungProt    -0.28185    0.09244  -3.049
-fungTilt    -0.29299    0.08711  -3.364
+             Estimate Std. Error        df t value Pr(&gt;|t|)    
+(Intercept)   0.99076    0.25829   5.85189   3.836 0.009021 ** 
+fungCevya    -0.22263    0.09225 279.36362  -2.413 0.016448 *  
+fungProt     -0.28185    0.09244 279.35623  -3.049 0.002517 ** 
+fungTilt     -0.29299    0.08711 279.40523  -3.364 0.000877 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Correlation of Fixed Effects:
           (Intr) fngCvy fngPrt
@@ -5478,13 +5481,13 @@ boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">emm_options</span>(<span class="at">lmer.df =</span> <span class="st">&quot;satterthwaite&quot;</span>)</span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>NBLS_emm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(NBLS_field, <span class="sc">~</span> fung)</span>
-<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">cld</span>(CPB_emm, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">Letters =</span> letters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">cld</span>(NBLS_emm, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">Letters =</span> letters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> fung   emmean    SE   df lower.CL upper.CL .group
- Cevya    1.39 0.645 1.02    -6.50     9.29  a    
- Prot     1.58 0.645 1.02    -6.31     9.47  ab   
- Tilt     1.72 0.643 1.00    -6.45     9.89   b   
- _CHECK   1.73 0.647 1.03    -6.02     9.48   b   
+ Tilt    0.698 0.251 5.20   0.0605     1.33  a    
+ Prot    0.709 0.254 5.49   0.0726     1.35  a    
+ Cevya   0.768 0.254 5.48   0.1318     1.40  ab   
+ _CHECK  0.991 0.258 5.85   0.3549     1.63   b   
 
 Degrees-of-freedom method: satterthwaite 
 Confidence level used: 0.95 
@@ -5524,13 +5527,14 @@ P value adjustment: dunnettx method for 3 tests </code></pre>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["npar"],"name":[1],"type":["int"],"align":["right"]},{"label":["Sum Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"6","2":"2.631091","3":"0.4385152","4":"2.139374","_rn_":"fung_time"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Sum Sq"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["NumDF"],"name":[3],"type":["int"],"align":["right"]},{"label":["DenDF"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"2.631091","2":"0.4385152","3":"6","4":"276.0402","5":"2.139374","6":"0.04917521","_rn_":"fung_time"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(NBLS_field_date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Linear mixed model fit by REML [&#39;lmerMod&#39;]
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+lmerModLmerTest]
 Formula: NBLS ~ fung_time + (1 | year/env)
    Data: CERC_TIME_data
 
@@ -5548,14 +5552,16 @@ Random effects:
 Number of obs: 288, groups:  env:year, 6; year, 2
 
 Fixed effects:
-              Estimate Std. Error t value
-(Intercept)     0.9869     0.2585   3.818
-fung_timePD07  -0.2731     0.1022  -2.673
-fung_timePD14  -0.2255     0.1022  -2.207
-fung_timePD21  -0.2304     0.1027  -2.243
-fung_timePD28  -0.2731     0.1022  -2.673
-fung_timePD35  -0.2969     0.1022  -2.906
-fung_timePD42  -0.3207     0.1022  -3.139
+              Estimate Std. Error       df t value Pr(&gt;|t|)   
+(Intercept)     0.9869     0.2585   5.8520   3.818  0.00920 **
+fung_timePD07  -0.2731     0.1022 276.0504  -2.673  0.00797 **
+fung_timePD14  -0.2255     0.1022 276.0504  -2.207  0.02816 * 
+fung_timePD21  -0.2304     0.1027 276.0456  -2.243  0.02570 * 
+fung_timePD28  -0.2731     0.1022 276.0504  -2.673  0.00797 **
+fung_timePD35  -0.2969     0.1022 276.0504  -2.906  0.00396 **
+fung_timePD42  -0.3207     0.1022 276.0504  -3.139  0.00188 **
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
 Correlation of Fixed Effects:
             (Intr) f_PD07 f_PD14 f_PD21 f_PD28 f_PD35
@@ -5570,16 +5576,16 @@ boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">emm_options</span>(<span class="at">lmer.df =</span> <span class="st">&quot;satterthwaite&quot;</span>)</span>
 <span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>NBLS_emm_date <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(NBLS_field_date, <span class="sc">~</span> fung_time)</span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">cld</span>(CPB_emm_date, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">Letters =</span> letters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">cld</span>(NBLS_emm_date, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">Letters =</span> letters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> fung_time emmean    SE   df lower.CL upper.CL .group
- PD14        1.50 0.713 1.02    -7.14     10.1  a    
- PD42        1.57 0.713 1.02    -7.08     10.2  a    
- PD35        1.61 0.713 1.02    -7.04     10.3  a    
- PD28        1.63 0.713 1.02    -7.02     10.3  a    
- PD07        1.74 0.713 1.02    -6.91     10.4  a    
- _CHECK      1.77 0.713 1.02    -6.83     10.4  a    
- PD21        1.78 0.713 1.02    -6.85     10.4  a    
+ PD42       0.666 0.257 5.74   0.0298     1.30  a    
+ PD35       0.690 0.257 5.74   0.0536     1.33  ab   
+ PD07       0.714 0.257 5.74   0.0774     1.35  ab   
+ PD28       0.714 0.257 5.74   0.0774     1.35  ab   
+ PD21       0.756 0.257 5.76   0.1201     1.39  ab   
+ PD14       0.761 0.257 5.74   0.1251     1.40  ab   
+ _CHECK     0.987 0.258 5.85   0.3506     1.62   b   
 
 Degrees-of-freedom method: satterthwaite 
 Confidence level used: 0.95 

@@ -366,7 +366,7 @@ summary(NBLS_field)
 
 emmeans::emm_options(lmer.df = "satterthwaite")
 NBLS_emm <- emmeans(NBLS_field, ~ fung)
-print(cld(CPB_emm, alpha = 0.05, Letters = letters))
+print(cld(NBLS_emm, alpha = 0.05, Letters = letters))
 NBLS = emmeans::contrast(NBLS_emm, method = "trt.vs.ctrl")
 NBLS
 ```
@@ -382,7 +382,7 @@ summary(NBLS_field_date)
 
 emmeans::emm_options(lmer.df = "satterthwaite")
 NBLS_emm_date <- emmeans(NBLS_field_date, ~ fung_time)
-print(cld(CPB_emm_date, alpha = 0.05, Letters = letters))
+print(cld(NBLS_emm_date, alpha = 0.05, Letters = letters))
 NBLS_date = emmeans::contrast(NBLS_emm_date, method = "trt.vs.ctrl")
 NBLS_date
 ```
