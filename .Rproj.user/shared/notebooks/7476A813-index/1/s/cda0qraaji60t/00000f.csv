@@ -1,0 +1,8 @@
+"0","CERC_TIME_data %>%"
+"0","  filter(!is.na(CPB)) %>%"
+"0","  filter(!is.na(fung_time)) %>%"
+"0","ggplot( aes(x = fung_time, y = CPB, fill = fung_time)) +"
+"0","  geom_boxplot(alpha = 0.7) +"
+"0","  facet_wrap(~env) +"
+"0","  theme_bw() +"
+"0","  labs(title = ""CPB por fung_time facetado por ambiente"")"

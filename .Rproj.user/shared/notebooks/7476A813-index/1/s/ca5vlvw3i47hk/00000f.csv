@@ -1,0 +1,8 @@
+"0","CERC_TIME_data %>%"
+"0","  filter(!is.na(fung_time)) %>%"
+"0","  filter(!is.na(n_lesion)) %>%"
+"0","ggplot( aes(x = fung_time, y = n_lesion, fill = fung_time)) +"
+"0","  geom_boxplot(alpha = 0.7) +"
+"0","  facet_wrap(~env, ncol=4) +"
+"0","  theme_bw() +"
+"0","  theme(axis.text.x = element_text(angle = 90))"

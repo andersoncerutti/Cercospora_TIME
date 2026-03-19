@@ -1,0 +1,2 @@
+"0","TIME_data <- readxl::read_xlsx(""data/Cercospora_TIME_measure.xlsx"",""TIME"")"
+"0","TIME_desc <- readxl::read_xlsx(""data/Cercospora_TIME_description.xlsx"",""TIME"")"
