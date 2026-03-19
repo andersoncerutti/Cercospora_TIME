@@ -1,5 +1,6 @@
 ---
-title: "Analysis Cercospora TIME"
+
+title: "Analysis Cercospora Time"
 author: "Anderson Cerutti"
 format:
   html:
@@ -9,24 +10,19 @@ format:
     fig-height: 10
     css: styles.css
     self-contained: true
-    df-print: paged
-    #code-tools:
-      #source: true
-      #toggle: true
-      #caption: "Source code"
+    df-print: default
 theme: "lumen"
 toc: true
 toc-location: left
 toc-depth: 10
-fontcolor: "black" # {html} Color of text.
-linkcolor: "#007FFF" # {html, pdf, beamer} Color of link text.
+fontcolor: "black"
+linkcolor: "#007FFF"
 reference-location: "margin"
 colortheme: "black"
 highlight: monochrome
 warning: false
 cache: true
-editor_options: 
-  chunk_output_type: console
+
 ---
 
 # Data and packages
@@ -317,6 +313,11 @@ HEAD_date = emmeans::contrast(HEAD_emm_date, method = "trt.vs.ctrl")
 HEAD_date
 ```
 
+#### Grafic
+```{r}
+
+```
+
 ## Disease
 
 ### CPB
@@ -351,6 +352,11 @@ CPB_emm_date <- emmeans(CPB_field_date, ~ fung_time)
 print(cld(CPB_emm_date, alpha = 0.05, Letters = letters))
 CPB_date = emmeans::contrast(CPB_emm_date, method = "trt.vs.ctrl")
 CPB_date
+```
+
+####Grafic
+```{r}
+
 ```
 
 ### NBLS
