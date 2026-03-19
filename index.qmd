@@ -4,24 +4,9 @@ title: "Analysis Cercospora Time"
 author: "Anderson Cerutti"
 format:
   html:
-    code-fold: false
-    smooth-scroll: true
-    fig-width: 16
-    fig-height: 10
-    css: styles.css
-    self-contained: true
-    df-print: default
-theme: "lumen"
+    df-print: paged
+theme: simple
 toc: true
-toc-location: left
-toc-depth: 10
-fontcolor: "black"
-linkcolor: "#007FFF"
-reference-location: "margin"
-colortheme: "black"
-highlight: monochrome
-warning: false
-cache: true
 
 ---
 
